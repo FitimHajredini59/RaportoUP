@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#344955"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/login2"
+        />
+
+    <TextView
+        android:id="@+id/hapesira"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50dp"
+        />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="280dp"
+        android:layout_height="45dp"
+        android:background="#FFFFFF"
+        android:hint="@string/perdoruesi"
+        />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="280dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="15dp"
+        android:background="#FFFFFF"
+        android:hint="Fjalekalimi"
+        android:inputType="textPassword"
+        />
+
+    <Button
+        android:id="@+id/loginbtn"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:background="#FF8C00"
+        android:layout_marginTop="35dp"
+        android:text="@string/kycu"
+        android:textColor="#FFFFFF"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:fontFamily="serif-monospace"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:text="Nuk keni llogari?" />
+
+    <Button
+        android:id="@+id/signupbtn"
+        android:layout_width="105dp"
+        android:layout_height="30dp"
+        android:background="#4A6572"
+        android:textColor="#FF8C00"
+        android:textStyle="bold"
+        android:text="@string/regjistrohu"
+        android:layout_marginTop="15dp"
+        />
+
+</LinearLayout>
