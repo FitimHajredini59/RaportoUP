@@ -4,120 +4,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpActivity"
-    android:orientation="vertical"
+    android:background="#344955"
     android:gravity="center"
-    android:background="#344955">
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".SignUpActivity">
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/signupicon1"
+
         />
 
-    <TextView
-        android:id="@+id/hapesira"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/etID"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="45dp"
-        />
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
+        android:background="#FFFFFF"
+        android:hint="ID"
+        android:padding="10dp"
+        android:imeOptions="actionNext"
+        android:inputType="textCapWords"
+        android:textSize="30sp" />
+
 
     <EditText
-        android:id="@+id/idja"
-        android:layout_width="280dp"
-        android:layout_height="45dp"
-        android:background="#FFFFFF"
-        android:hint="@string/idja"
-        />
-
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="280dp"
-        android:layout_height="45dp"
-        android:background="#FFFFFF"
-        android:layout_marginTop="15dp"
-        android:hint="@string/email"
-        />
-
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="280dp"
-        android:layout_height="45dp"
-        android:background="#FFFFFF"
-        android:layout_marginTop="15dp"
-        android:hint="@string/perdoruesi"
-        />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="280dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="15dp"
-        android:background="#FFFFFF"
-        android:hint="Fjalekalimi"
-        android:inputType="textPassword"
-        />
-
-    <EditText
-        android:id="@+id/password2"
-        android:layout_width="280dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="15dp"
-        android:background="#FFFFFF"
-        android:hint="Rishkruaj fjalekalimin"
-        android:inputType="textPassword"
-        />
-
-    <CheckBox
-        android:id="@+id/kushtet"
-        android:layout_width="wrap_content"
+        android:id="@+id/etMail"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Une i pranoj kushtet e perdorimit"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="25dp"
-        android:textColor="#FFFFFF"
-        />
+        android:layout_marginBottom="20dp"
+        android:background="#FFFFFF"
+        android:hint="Email"
+        android:imeOptions="actionNext"
+        android:inputType="textEmailAddress"
+        android:padding="10dp"
+        android:textSize="30sp" />
 
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:fontFamily="serif-monospace"-->
-<!--        android:textColor="#FFFFFF"-->
-<!--        android:textAlignment="center"-->
-<!--        android:text="Une i pranoj kushtet e perdorimit"-->
-<!--        />-->
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="#FFFFFF"
+        android:hint="Username"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textSize="30sp" />
+
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="#FFFFFF"
+        android:hint="Fjalëkalimi"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:textSize="30sp" />
 
     <Button
-        android:id="@+id/signupbtn"
-        android:layout_width="140dp"
-        android:layout_height="50dp"
-        android:background="#FF8C00"
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="15dp"
-        android:text="@string/regjistrohu"
-        android:textColor="#FFFFFF"
+        android:background="#FF8C00"
+        android:padding="10dp"
+        android:text="@string/btnSignUp"
         android:textAllCaps="false"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        />
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
+    <!--
+    -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="55dp"
         android:fontFamily="sans-serif"
-        android:text="Tashme jeni regjistruar?"
+        android:text="Tashmë jeni regjistruar?"
         android:textAlignment="center"
         android:textColor="#FFFFFF" />
 
     <Button
-        android:id="@+id/loginbtn"
+        android:id="@+id/logInBtn"
         android:layout_width="105dp"
         android:layout_height="30dp"
         android:background="#4A6572"
         android:textColor="#FF8C00"
         android:textStyle="bold"
-        android:text="@string/kycu"
+        android:text="@string/btnLogin"
         android:layout_marginTop="15dp"
         />
 

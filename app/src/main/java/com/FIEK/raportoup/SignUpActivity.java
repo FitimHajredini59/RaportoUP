@@ -2,42 +2,67 @@ package com.FIEK.raportoup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
+
 
 public class SignUpActivity extends AppCompatActivity {
 
-    TextView Hapesira;
-    EditText ID, Email, Username, Password, Password2;
-    Button LogInBtn, SignUpBtn;
+    EditText etID, etEmailAddress, etUsername, etPassword;
+    Button btnRegister, btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        ID = (EditText) findViewById(R.id.idja);
-        Email = (EditText) findViewById(R.id.email);
-        Username = (EditText) findViewById(R.id.username);
-        Password = (EditText) findViewById(R.id.password);
-        Password2 = (EditText) findViewById(R.id.password2);
-        SignUpBtn = (Button) findViewById(R.id.signupbtn);
-        LogInBtn = (Button) findViewById(R.id.loginbtn);
+        etID = findViewById(R.id.etID);
+        etEmailAddress = findViewById(R.id.etMail);
+        etUsername = findViewById(R.id.etUsername);
+        etPassword = findViewById(R.id.etPassword);
 
-        LogInBtn.setOnClickListener(new View.OnClickListener() {
+        btnRegister = findViewById(R.id.btnRegister);
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                openSignInActivity();
+                ContentValues cv = new ContentValues();
+                cv.put(Perdoruesi.ID, etID.getText().toString());
+                cv.put(Perdoruesi.Email, etEmailAddress.getText().toString());
+                cv.put(Perdoruesi.Username, etUsername.getText().toString());
+                cv.put(Perdoruesi.Password, etPassword.getText().toString());
+
+                SQLiteDatabase objDb = new Databaza(SignUpActivity.this).getWritableDatabase();
+
+                try {
+                    long retValue = objDb.insert(Databaza.PerdoruesitTable, null, cv);
+                    if (retValue > 0) {
+                        Toast.makeText(SignUpActivity.this, "Me id " + retValue + " u regjistruat me sukses!",
+                                Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (Exception ex) {
+                    Log.e("except", ex.getMessage());
+                } finally {
+                    objDb.close();
+                }
             }
         });
 
-    }
 
-    private void openSignInActivity() {
-        Intent LogIn = new Intent(SignUpActivity.this, MainActivity.class);
-        startActivity(LogIn);
+        btnLogin = findViewById(R.id.logInBtn);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent LogIn = new Intent(SignUpActivity.this, LoginActivity.class);
+                startActivity(LogIn);
+            }
+        });
     }
 }

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#344955"
+    android:gravity="center_vertical"
+    android:padding="16dp"
+    tools:context=".LoginActivity">
+
+
+    <ImageView
+        android:id="@+id/img1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/login2" />
+
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img1"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
+        android:background="#FFFFFF"
+        android:fontFamily="sans-serif"
+        android:hint="Username"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textSize="30sp" />
+
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etUsername"
+        android:background="#FFFFFF"
+        android:fontFamily="sans-serif"
+        android:hint="Fjalëkalimi"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:textSize="30sp">
+
+    </EditText>
+
+    <Button
+        android:id="@+id/btnLogin1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="#FF8C00"
+        android:fontFamily="sans-serif"
+        android:padding="10dp"
+        android:text="@string/btnLogin"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnLogin1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:fontFamily="sans-serif"
+        android:text="Nuk keni llogari?"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="138dp"
+        android:background="#4A6572"
+        android:fontFamily="sans-serif"
+        android:padding="10sp"
+        android:text="Regjistrohu"
+        android:textColor="#FF8C00"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

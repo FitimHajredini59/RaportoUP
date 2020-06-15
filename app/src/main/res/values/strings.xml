@@ -1,13 +1,5 @@
 <resources>
     <string name="app_name">RaportoUP</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="login">Log In</string>
-    <string name="sign_up">Sign Up</string>
-    <string name="kycu">Kyçu</string>
-    <string name="regjistrohu">Regjistrohu</string>
-    <string name="perdoruesi">Perdoruesi</string>
-    <string name="fjalekalimi">Fjalkalimi</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -18,5 +10,14 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="email">Email</string>
-    <string name="idja">ID</string>
+
+    <string name="btnLogin">Kyçu</string>
+    <string name="btnSignUp">Regjistrohu</string>
+    <string name="loguar_sukses">Jeni kyçur me sukses!</string>
+    <string name="kredencialet_gabim">Kredencialet janë gabim!</string>
+    <string name="title_name">Kujdes!</string>
+    <string name="alert_message">Dëshironi të dilni?</string>
+    <string name="positive_button">Po</string>
+    <string name="negative_button">Jo</string>
+
 </resources>
