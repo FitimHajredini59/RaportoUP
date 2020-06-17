@@ -19,5 +19,7 @@
     <string name="alert_message">Dëshironi të dilni?</string>
     <string name="positive_button">Po</string>
     <string name="negative_button">Jo</string>
+    <string name="raportim_i_ri">Raportim i ri</string>
+
 
 </resources>

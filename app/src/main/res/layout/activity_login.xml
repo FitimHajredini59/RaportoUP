@@ -59,6 +59,7 @@
         android:background="#FF8C00"
         android:fontFamily="sans-serif"
         android:padding="10dp"
+        android:textAllCaps="false"
         android:text="@string/btnLogin"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
