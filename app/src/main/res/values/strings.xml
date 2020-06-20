@@ -20,6 +20,8 @@
     <string name="positive_button">Po</string>
     <string name="negative_button">Jo</string>
     <string name="raportim_i_ri">Raportim i ri</string>
+    <string name="raportoUP">RaportoUP</string>
+    <string name="per_tmiren_uni">për të mirën e Universitetit!</string>
 
 
 </resources>
