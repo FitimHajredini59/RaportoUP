@@ -9,25 +9,34 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -42,10 +51,13 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
-
     /* ------------------------------------- */
 
+    //
+    EditText etKoment;
 
+    Button dergo;
+    String spinner_value;
     String strExtras = "";
 
     /*-------------------------E shtuar per spinnerin--------------------------------*/
@@ -65,6 +77,7 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
         TextView tv1 = findViewById(R.id.tv1);
         tv1.setText("Mirë se vini, " + strExtras + "!");
 
+
         /*-------------------------E shtuar per spinnerin--------------------------------*/
         spinner = (Spinner) findViewById(R.id.kategorite);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(FaqjaPare.this,
@@ -72,7 +85,23 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+
+                Toast.makeText(FaqjaPare.this, spinner.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+
+                spinner_value = spinner.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+
+            }
+        });
         /*-------------------------E shtuar per spinnerin--------------------------------*/
 
 
@@ -104,7 +133,7 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
         /* ------------------- per kamere ----------------------------------------- */
 
         this.imageView = (ImageView) this.findViewById(R.id.selectedImage);
-        ImageView imageView = this.findViewById(R.id.cameraButton);
+        final ImageView imageView = this.findViewById(R.id.cameraButton);
         imageView.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -124,11 +153,59 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
                 }
             }
         });
-        /* --------------------------------- */
 
+        /* --------------------------------- */
+        etKoment = findViewById(R.id.koment);
+
+        dergo = findViewById(R.id.dergo);
+        dergo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //
+                Bitmap b = ((BitmapDrawable) imageSelected.getDrawable()).getBitmap();
+                /*krijo objektin e ByteArrayoutputStream class.
+                Ndaje foton ne pjese bajt, duke thirr toByteArray()
+                nga ByteOutputStream class dhe ruaj ate ne nje varg */
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                b.compress(Bitmap.CompressFormat.PNG, 100, bos);
+                byte[] img = bos.toByteArray();
+
+                //
+                ContentValues cvv = new ContentValues();
+                cvv.put(Raporti_i_ri.Username, strExtras);
+                cvv.put(Raporti_i_ri.Koment, etKoment.getText().toString());
+                cvv.put(Raporti_i_ri.Kategorite, spinner_value);
+                cvv.put(Raporti_i_ri.SelectedImage, img);
+                cvv.put(Raporti_i_ri.Koha, getDateTime());
+
+                SQLiteDatabase objDb = new Databaza(FaqjaPare.this).getWritableDatabase();
+
+
+                try {
+                    long retValue1 = objDb.insert(Databaza.RaportiRiTable, null, cvv);
+                    if (retValue1 > 0) {
+                        Toast.makeText(FaqjaPare.this, " Raporti u dërgua me sukses! ",
+                                Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("except", ex.getMessage());
+                } finally {
+                    objDb.close();
+                }
+            }
+        });
     }
 
+    //Koha
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
 
+    //
     /*-------------------------E shtuar per spinnerin--------------------------------*/
     @Override
     public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
@@ -200,12 +277,10 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
     /* ++++++++++++++++++++++++++++++++Per ngarkim te fotos +++++++++++++++++++++++++++++++++++++++++++++ */
 
     private void selectImage() {
-
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE);
         }
-
     }
 
     @Override
@@ -249,7 +324,9 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
                         // ******************************************
                         //Më poshtë është selected image file
                         //bëj çfarëdo që të duash të bësh me selected image file...
-                        File selectedImageFiles = new File(getPathFromUri(selectedImageUri));
+                        //            File selectedImageFiles = new File(getPathFromUri(selectedImageUri));
+
+
                         // ********************************************
 
                     } catch (Exception exception) {
@@ -268,21 +345,19 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
     }
 
     // ***************************************
-    private String getPathFromUri(Uri contentUri) {
-        String filePath;
-        Cursor cursor = getContentResolver()
-                .query(contentUri, null, null, null, null);
-        if (cursor == null) {
-            filePath = contentUri.getPath();
-        } else {
-            cursor.moveToFirst();
-            int index = cursor.getColumnIndex("_data");
-            filePath = cursor.getString(index);
-            cursor.close();
-        }
-        return filePath;
-    }
-    // ******************************************
-
-
+//    private String getPathFromUri(Uri contentUri) {
+//        String filePath;
+//        Cursor cursor = getContentResolver()
+//                .query(contentUri, null, null, null, null);
+//        if (cursor == null) {
+//            filePath = contentUri.getPath();
+//        } else {
+//            cursor.moveToFirst();
+//            int index = cursor.getColumnIndex(Raporti_i_ri.SelectedImage);
+//            filePath = cursor.getString(index);
+//            cursor.close();
+//        }
+//        return filePath;
+//    }
+//    // ******************************************
 }
