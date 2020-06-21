@@ -9,4 +9,5 @@ public class Raporti_i_ri {
     public static final String Kategorite = "kategorite";
     public static final String SelectedImage = "selectedImage";
     public static final String Koha = "koha";
+    public static final String Adresa = "adresa";
 }

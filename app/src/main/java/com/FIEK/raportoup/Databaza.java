@@ -13,7 +13,7 @@ public class Databaza extends SQLiteOpenHelper {
     private static final String LOG = "Databaza";
 
     // Database Version
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     // Database Name
     private static final String DATABASE_NAME = "raportoupDB";
@@ -44,7 +44,8 @@ public class Databaza extends SQLiteOpenHelper {
                 Raporti_i_ri.Koment + " text, " +
                 Raporti_i_ri.Kategorite + " text, " +
                 Raporti_i_ri.SelectedImage + " blob, " +
-                Raporti_i_ri.Koha + " DEFAULT CURRENT_TIMESTAMP " +
+                Raporti_i_ri.Koha + " DEFAULT CURRENT_TIMESTAMP, " +
+                Raporti_i_ri.Adresa + " text " +
                 ")";
 
         db.execSQL(strQuery);

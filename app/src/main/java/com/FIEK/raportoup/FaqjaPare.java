@@ -17,8 +17,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.ResultReceiver;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -27,13 +31,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -55,6 +64,13 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
 
     //
     EditText etKoment;
+
+    //lokacion
+    private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
+    private TextView textLatLong, textAdresa;
+    private ProgressBar progressBar;
+    private ResultReceiver resultReceiver;
+
 
     Button dergo;
     String spinner_value;
@@ -91,7 +107,7 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
 
-                Toast.makeText(FaqjaPare.this, spinner.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(FaqjaPare.this, spinner.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
 
                 spinner_value = spinner.getSelectedItem().toString();
             }
@@ -102,7 +118,7 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
 
             }
         });
-        /*-------------------------E shtuar per spinnerin--------------------------------*/
+        /*----------------------------------------------------------------------------*/
 
 
         /* ++++++++++++++++++++++++++++++++Per ngarkim te fotos +++++++++++++++++++++++++++++++++++++++++++++ */
@@ -153,6 +169,35 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
                 }
             }
         });
+        /* -------------------------------------------------------------------------------- */
+
+
+        /* """"""""""""""""""""""""""""""""""""""" Lokacioni """""""""""""""""""""""""""""""""""""""""""" */
+
+        resultReceiver = new AddressResultReceiver(new Handler());
+
+        textLatLong = findViewById(R.id.textLatLong);
+        textAdresa = findViewById(R.id.textAdresa);
+        progressBar = findViewById(R.id.progressBar);
+        findViewById(R.id.buttonGetCurrentLocation).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(
+                        getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(
+                            FaqjaPare.this,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            REQUEST_CODE_LOCATION_PERMISSION
+                    );
+                } else {
+                    getCurrentLocation();
+                }
+
+            }
+        });
+
+        /* """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" */
 
         /* --------------------------------- */
         etKoment = findViewById(R.id.koment);
@@ -178,6 +223,7 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
                 cvv.put(Raporti_i_ri.Kategorite, spinner_value);
                 cvv.put(Raporti_i_ri.SelectedImage, img);
                 cvv.put(Raporti_i_ri.Koha, getDateTime());
+                cvv.put(Raporti_i_ri.Adresa, textAdresa.getText().toString());
 
                 SQLiteDatabase objDb = new Databaza(FaqjaPare.this).getWritableDatabase();
 
@@ -245,7 +291,7 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
     public void onNothingSelected(AdapterView<?> parent) {
         // TODO Auto-generated method stub
     }
-    /*-------------------------E shtuar per spinnerin--------------------------------*/
+    /*---------------------------------------------------------------------------*/
 
     boolean getBack = false;
 
@@ -298,15 +344,91 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
         // per kamere
         if (requestCode == MY_CAMERA_PERMISSION_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "u lejua perdorimi kameres", Toast.LENGTH_LONG).show();
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
             } else {
-                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "nuk u lejua perdorimi kameres", Toast.LENGTH_LONG).show();
             }
         }
         //
+
+        //per lokacion
+        if (requestCode == REQUEST_CODE_LOCATION_PERMISSION && grantResults.length > 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getCurrentLocation();
+            } else {
+                Toast.makeText(this, "Leja u mohua!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
+
+    private void getCurrentLocation() {
+        progressBar.setVisibility(View.VISIBLE);
+
+        LocationRequest locationRequest = new LocationRequest();
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(3000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        LocationServices.getFusedLocationProviderClient(FaqjaPare.this)
+                .requestLocationUpdates(locationRequest, new LocationCallback() {
+
+                    @Override
+                    public void onLocationResult(LocationResult locationResult) {
+                        super.onLocationResult(locationResult);
+                        LocationServices.getFusedLocationProviderClient(FaqjaPare.this)
+                                .removeLocationUpdates(this);
+                        if (locationResult != null && locationResult.getLocations().size() > 0) {
+                            int latestLocationIndex = locationResult.getLocations().size() - 1;
+                            double latitude =
+                                    locationResult.getLocations().get(latestLocationIndex).getLatitude();
+                            double longitude =
+                                    locationResult.getLocations().get(latestLocationIndex).getLongitude();
+                            textLatLong.setText(
+                                    String.format(
+                                            "Latitude: %s\nLongitude: %s",
+                                            latitude,
+                                            longitude
+                                    )
+                            );
+                            //
+                            Location location = new Location("providerNA");
+                            location.setLatitude(latitude);
+                            location.setLongitude(longitude);
+                            fetchAdressFromLatLong(location);
+
+                        } else {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+                }, Looper.getMainLooper());
+    }
+
+    private void fetchAdressFromLatLong(Location location) {
+        Intent intent = new Intent(this, FetchAddressIntentService.class);
+        intent.putExtra(Konstanta.RECEIVER, resultReceiver);
+        intent.putExtra(Konstanta.LOCATION_DATA_EXTRA, location);
+        startService(intent);
+    }
+
+    private class AddressResultReceiver extends ResultReceiver {
+        public AddressResultReceiver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+            super.onReceiveResult(resultCode, resultData);
+            if (resultCode == Konstanta.SUCCESS_RESULT) {
+                textAdresa.setText(resultData.getString(Konstanta.RESULT_DATA_KEY));
+            } else {
+                Toast.makeText(FaqjaPare.this, resultData.getString(Konstanta.RESULT_DATA_KEY), Toast.LENGTH_SHORT).show();
+            }
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+//
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
