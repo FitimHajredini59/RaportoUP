@@ -107,8 +107,6 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
 
-//                Toast.makeText(FaqjaPare.this, spinner.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
-
                 spinner_value = spinner.getSelectedItem().toString();
             }
 
@@ -233,6 +231,10 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
                     if (retValue1 > 0) {
                         Toast.makeText(FaqjaPare.this, " Raporti u dërgua me sukses! ",
                                 Toast.LENGTH_LONG).show();
+                        //
+                        Intent intentRaportetMia = new Intent(FaqjaPare.this, RaportetMia.class);
+                        startActivity(intentRaportetMia);
+                        //
                     }
                 } catch (Exception ex) {
                     Log.e("except", ex.getMessage());

@@ -4,11 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import androidx.appcompat.widget.Toolbar;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toolbar;
-
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 

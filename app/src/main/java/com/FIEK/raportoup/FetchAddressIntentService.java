@@ -17,12 +17,10 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class FetchAddressIntentService extends IntentService {
-
     private ResultReceiver resultReceiver;
 
     public FetchAddressIntentService() {
         super("FetchAddressIntentServices");
-
     }
 
     @Override
@@ -59,7 +57,6 @@ public class FetchAddressIntentService extends IntentService {
                 );
             }
         }
-
     }
 
     private void deliverResultToReceiver(int resultCode, String addressMessage) {

@@ -1,11 +1,8 @@
 package com.FIEK.raportoup;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import androidx.annotation.Nullable;
 
 public class Databaza extends SQLiteOpenHelper {
 
@@ -13,7 +10,7 @@ public class Databaza extends SQLiteOpenHelper {
     private static final String LOG = "Databaza";
 
     // Database Version
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 6;
 
     // Database Name
     private static final String DATABASE_NAME = "raportoupDB";
@@ -35,7 +32,7 @@ public class Databaza extends SQLiteOpenHelper {
                 Perdoruesi.ID + " integer primary key autoincrement," +
                 Perdoruesi.Email + " text," +
                 Perdoruesi.Username + " text not null," +
-                Perdoruesi.Password + " text not null" +
+                Perdoruesi.Password + " text not null " +
                 ")";
 
         String strQuery1 = "create table " + RaportiRiTable + " (" +
@@ -54,11 +51,8 @@ public class Databaza extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
         db.execSQL("drop table if exists " + PerdoruesitTable);
         db.execSQL("drop table if exists " + RaportiRiTable);
         onCreate(db);
     }
-
-
 }

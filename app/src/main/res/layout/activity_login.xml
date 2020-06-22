@@ -52,7 +52,7 @@
 
     <Button
         android:id="@+id/btnLogin1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/etPassword"
         android:layout_centerHorizontal="true"
@@ -80,14 +80,14 @@
 
     <Button
         android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/etPassword"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="138dp"
         android:background="#4A6572"
         android:fontFamily="sans-serif"
-        android:padding="10sp"
+        android:padding="10dp"
         android:text="Regjistrohu"
         android:textColor="#FF8C00"
         android:textSize="22sp"

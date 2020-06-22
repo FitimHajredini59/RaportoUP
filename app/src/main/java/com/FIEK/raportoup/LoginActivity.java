@@ -55,14 +55,14 @@ public class LoginActivity extends AppCompatActivity {
             String dbPassword = c.getString(2);
 
             if (username.equals(dbUsername) &&
-                    password.equals(dbPassword)) {
+                    Hash.md5(password).equals(dbPassword)) {
+
                 Toast.makeText(LoginActivity.this, getString(R.string.loguar_sukses),
                         Toast.LENGTH_LONG).show();
 
                 Intent faqjaPare = new Intent(LoginActivity.this, FaqjaPare.class);
                 faqjaPare.putExtra("username", etUsername.getText().toString());
                 startActivity(faqjaPare);
-
             } else {
                 etPassword.setError(getString(R.string.kredencialet_gabim));
                 etPassword.requestFocus();
@@ -73,3 +73,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 }
+
+
+

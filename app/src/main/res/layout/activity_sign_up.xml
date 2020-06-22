@@ -70,9 +70,22 @@
         android:padding="10dp"
         android:textSize="20sp" />
 
+    <EditText
+        android:id="@+id/etPassword2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="#FFFFFF"
+        android:hint="Rishkruaj fjalëkalimi"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:textSize="20sp" />
+
+
     <Button
         android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
@@ -97,11 +110,13 @@
 
     <Button
         android:id="@+id/logInBtn"
-        android:layout_width="105dp"
-        android:layout_height="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:background="#4A6572"
         android:text="@string/btnLogin"
+        android:textSize="22sp"
+        android:padding="10dp"
         android:textColor="#FF8C00"
         android:textStyle="bold" />
 

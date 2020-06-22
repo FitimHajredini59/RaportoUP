@@ -38,6 +38,7 @@
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".SignUpActivity"></activity>
         <activity android:name=".FaqjaPare" />
+        <activity android:name=".RaportetMia"></activity>
 
         <service android:name=".FetchAddressIntentService" />
     </application>
