@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class FaqjaHyrese extends AppCompatActivity {
 
-
     private RelativeLayout loginLayout;
 
     @Override
@@ -20,16 +19,13 @@ public class FaqjaHyrese extends AppCompatActivity {
         setContentView(R.layout.activity_faqja_hyrese);
         LinearLayout llayout = (LinearLayout) findViewById(R.id.activity_faqja_hyrese);
         llayout.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Intent intt= new Intent(FaqjaHyrese.this, LoginActivity.class);
-                startActivity(intt);
-
-            }
-
+                @Override
+                public void onClick(View v) {
+                    Intent intt= new Intent(FaqjaHyrese.this, LoginActivity.class);
+                    startActivity(intt);
+                }
             }
         );
-    }}
+    }
+}
 
