@@ -1,4 +1,4 @@
-package com.FIEK.raportoup;
+package com.FIEK.raportoup.databaza;
 
 public class Perdoruesi {
     public static final String ID = "id";

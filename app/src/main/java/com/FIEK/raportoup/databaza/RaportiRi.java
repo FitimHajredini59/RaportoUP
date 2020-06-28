@@ -1,8 +1,8 @@
-package com.FIEK.raportoup;
+package com.FIEK.raportoup.databaza;
 
 import java.text.DateFormat;
 
-public class Raporti_i_ri {
+public class RaportiRi {
     public static final String ID = "id";
     public static final String Username = "username";
     public static final String Koment = "koment";

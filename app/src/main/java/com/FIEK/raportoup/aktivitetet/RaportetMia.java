@@ -1,12 +1,16 @@
-package com.FIEK.raportoup;
+package com.FIEK.raportoup.aktivitetet;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import androidx.appcompat.widget.Toolbar;
+
 import android.os.Build;
 import android.os.Bundle;
+
+import com.FIEK.raportoup.adapter.PageAdapter;
+import com.FIEK.raportoup.R;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
@@ -38,28 +42,27 @@ public class RaportetMia<Tablayout> extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 1) {
                     toolbar.setBackgroundColor(ContextCompat.getColor(RaportetMia.this,
-                            android.R.color.holo_red_light));
+                            android.R.color.darker_gray));
                 } else {
                     toolbar.setBackgroundColor(ContextCompat.getColor(RaportetMia.this,
-                            android.R.color.holo_green_light));
+                            android.R.color.holo_orange_dark));
                 }
 
                 if (tab.getPosition() == 1) {
                     tablayout.setBackgroundColor(ContextCompat.getColor(RaportetMia.this,
-                            android.R.color.holo_red_light));
+                            android.R.color.darker_gray));
                 } else {
                     tablayout.setBackgroundColor(ContextCompat.getColor(RaportetMia.this,
-                            android.R.color.holo_green_light));
+                            android.R.color.holo_orange_dark));
                 }
-
                 if (tab.getPosition() == 1) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         getWindow().setStatusBarColor(ContextCompat.getColor(RaportetMia.this,
-                                android.R.color.holo_red_light));
+                                android.R.color.darker_gray));
                     } else {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             getWindow().setStatusBarColor(ContextCompat.getColor(RaportetMia.this,
-                                    android.R.color.holo_green_light));
+                                    android.R.color.darker_gray));
                         }
                     }
                 }
@@ -67,7 +70,6 @@ public class RaportetMia<Tablayout> extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
@@ -75,7 +77,5 @@ public class RaportetMia<Tablayout> extends AppCompatActivity {
 
             }
         });
-
     }
-
 }

@@ -1,4 +1,4 @@
-package com.FIEK.raportoup;
+package com.FIEK.raportoup.aktivitetet;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +36,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.FIEK.raportoup.R;
+import com.FIEK.raportoup.databaza.Databaza;
+import com.FIEK.raportoup.databaza.RaportiRi;
+import com.FIEK.raportoup.utilities.FetchAddressIntentService;
+import com.FIEK.raportoup.utilities.Konstanta;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -54,15 +59,12 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
     private static final int REQUEST_CODE_SELECT_IMAGE = 2;
 
     private ImageView imageSelected;
-//
 
     /* -----------per kamere --------------------- */
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
     /* ------------------------------------- */
-
-    //
     EditText etKoment;
 
     //lokacion
@@ -71,10 +73,9 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
     private ProgressBar progressBar;
     private ResultReceiver resultReceiver;
 
-
     Button dergo;
     String spinner_value;
-    String strExtras = "";
+    public static String strExtras = "";
 
     /*-------------------------E shtuar per spinnerin--------------------------------*/
     private Spinner spinner;
@@ -93,42 +94,30 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
         TextView tv1 = findViewById(R.id.tv1);
         tv1.setText("Mirë se vini, " + strExtras + "!");
 
-
         /*-------------------------E shtuar per spinnerin--------------------------------*/
         spinner = (Spinner) findViewById(R.id.kategorite);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(FaqjaPare.this,
                 android.R.layout.simple_spinner_item, paths);
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 spinner_value = spinner.getSelectedItem().toString();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // TODO Auto-generated method stub
-
             }
         });
         /*----------------------------------------------------------------------------*/
 
-
         /* ++++++++++++++++++++++++++++++++Per ngarkim te fotos +++++++++++++++++++++++++++++++++++++++++++++ */
-
-        //
         imageSelected = findViewById(R.id.selectedImage);
-        //
 
         findViewById(R.id.ngarkofoto).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (ContextCompat.checkSelfPermission(
                         getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE
                 ) != PackageManager.PERMISSION_GRANTED) {
@@ -145,14 +134,12 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
         /* +++++++++++++++++++++++++++++++ */
 
         /* ------------------- per kamere ----------------------------------------- */
-
         this.imageView = (ImageView) this.findViewById(R.id.selectedImage);
         final ImageView imageView = this.findViewById(R.id.cameraButton);
         imageView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
                 if (ContextCompat.checkSelfPermission(
                         getApplicationContext(), Manifest.permission.CAMERA
                 ) != PackageManager.PERMISSION_GRANTED) {
@@ -169,9 +156,7 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
         });
         /* -------------------------------------------------------------------------------- */
 
-
         /* """"""""""""""""""""""""""""""""""""""" Lokacioni """""""""""""""""""""""""""""""""""""""""""" */
-
         resultReceiver = new AddressResultReceiver(new Handler());
 
         textLatLong = findViewById(R.id.textLatLong);
@@ -191,13 +176,10 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
                 } else {
                     getCurrentLocation();
                 }
-
             }
         });
-
         /* """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" */
 
-        /* --------------------------------- */
         etKoment = findViewById(R.id.koment);
 
         dergo = findViewById(R.id.dergo);
@@ -205,7 +187,6 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
             @Override
             public void onClick(View v) {
 
-                //
                 Bitmap b = ((BitmapDrawable) imageSelected.getDrawable()).getBitmap();
                 /*krijo objektin e ByteArrayoutputStream class.
                 Ndaje foton ne pjese bajt, duke thirr toByteArray()
@@ -214,17 +195,15 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
                 b.compress(Bitmap.CompressFormat.PNG, 100, bos);
                 byte[] img = bos.toByteArray();
 
-                //
                 ContentValues cvv = new ContentValues();
-                cvv.put(Raporti_i_ri.Username, strExtras);
-                cvv.put(Raporti_i_ri.Koment, etKoment.getText().toString());
-                cvv.put(Raporti_i_ri.Kategorite, spinner_value);
-                cvv.put(Raporti_i_ri.SelectedImage, img);
-                cvv.put(Raporti_i_ri.Koha, getDateTime());
-                cvv.put(Raporti_i_ri.Adresa, textAdresa.getText().toString());
+                cvv.put(RaportiRi.Username, strExtras);
+                cvv.put(RaportiRi.Koment, etKoment.getText().toString());
+                cvv.put(RaportiRi.Kategorite, spinner_value);
+                cvv.put(RaportiRi.SelectedImage, img);
+                cvv.put(RaportiRi.Koha, getDateTime());
+                cvv.put(RaportiRi.Adresa, textAdresa.getText().toString());
 
                 SQLiteDatabase objDb = new Databaza(FaqjaPare.this).getWritableDatabase();
-
 
                 try {
                     long retValue1 = objDb.insert(Databaza.RaportiRiTable, null, cvv);
@@ -257,36 +236,7 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
     /*-------------------------E shtuar per spinnerin--------------------------------*/
     @Override
     public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-
-        switch (position) {
-            case 0:
-                // Whatever you want to happen when the first item gets selected
-                break;
-            case 1:
-                // Whatever you want to happen when the second item gets selected
-                break;
-            case 2:
-                // Whatever you want to happen when the thrid item gets selected
-                break;
-            case 3:
-                // Whatever you want to happen when the thrid item gets selected
-                break;
-            case 4:
-                // Whatever you want to happen when the thrid item gets selected
-                break;
-            case 5:
-                // Whatever you want to happen when the thrid item gets selected
-                break;
-            case 6:
-                // Whatever you want to happen when the thrid item gets selected
-                break;
-            case 7:
-                // Whatever you want to happen when the thrid item gets selected
-                break;
-            case 8:
-                // Whatever you want to happen when the thrid item gets selected
-                break;
-        }
+        
     }
 
     @Override
@@ -310,7 +260,8 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 getBack = true;
-                onBackPressed();
+                Intent bintent = new Intent(FaqjaPare.this, Login.class);
+                startActivity(bintent);
             }
         });
         alertDialog.setNegativeButton(R.string.negative_button, new DialogInterface.OnClickListener() {
@@ -373,6 +324,9 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
         locationRequest.setFastestInterval(3000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
         LocationServices.getFusedLocationProviderClient(FaqjaPare.this)
                 .requestLocationUpdates(locationRequest, new LocationCallback() {
 
@@ -445,14 +399,6 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
                         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                         imageSelected.setImageBitmap(bitmap);
 
-                        // ******************************************
-                        //Më poshtë është selected image file
-                        //bëj çfarëdo që të duash të bësh me selected image file...
-                        //            File selectedImageFiles = new File(getPathFromUri(selectedImageUri));
-
-
-                        // ********************************************
-
                     } catch (Exception exception) {
                         Toast.makeText(this, exception.getMessage(), Toast.LENGTH_SHORT);
                     }
@@ -467,21 +413,4 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
         }
         //
     }
-
-    // ***************************************
-//    private String getPathFromUri(Uri contentUri) {
-//        String filePath;
-//        Cursor cursor = getContentResolver()
-//                .query(contentUri, null, null, null, null);
-//        if (cursor == null) {
-//            filePath = contentUri.getPath();
-//        } else {
-//            cursor.moveToFirst();
-//            int index = cursor.getColumnIndex(Raporti_i_ri.SelectedImage);
-//            filePath = cursor.getString(index);
-//            cursor.close();
-//        }
-//        return filePath;
-//    }
-//    // ******************************************
 }

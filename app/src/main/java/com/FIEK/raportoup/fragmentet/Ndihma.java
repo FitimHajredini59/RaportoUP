@@ -1,4 +1,4 @@
-package com.FIEK.raportoup;
+package com.FIEK.raportoup.fragmentet;
 
 import android.os.Bundle;
 
@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.FIEK.raportoup.R;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link NdihmaFragment#newInstance} factory method to
+ * Use the {@link Ndihma#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NdihmaFragment extends Fragment {
+public class Ndihma extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +26,7 @@ public class NdihmaFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public NdihmaFragment() {
+    public Ndihma() {
         // Required empty public constructor
     }
 
@@ -37,8 +39,8 @@ public class NdihmaFragment extends Fragment {
      * @return A new instance of fragment NdihmaFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NdihmaFragment newInstance(String param1, String param2) {
-        NdihmaFragment fragment = new NdihmaFragment();
+    public static Ndihma newInstance(String param1, String param2) {
+        Ndihma fragment = new Ndihma();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

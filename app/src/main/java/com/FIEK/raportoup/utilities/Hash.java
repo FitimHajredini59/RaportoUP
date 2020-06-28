@@ -1,4 +1,4 @@
-package com.FIEK.raportoup;
+package com.FIEK.raportoup.utilities;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

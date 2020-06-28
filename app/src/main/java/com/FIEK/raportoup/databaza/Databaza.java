@@ -1,8 +1,11 @@
-package com.FIEK.raportoup;
+package com.FIEK.raportoup.databaza;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.FIEK.raportoup.aktivitetet.FaqjaPare;
 
 public class Databaza extends SQLiteOpenHelper {
 
@@ -36,13 +39,13 @@ public class Databaza extends SQLiteOpenHelper {
                 ")";
 
         String strQuery1 = "create table " + RaportiRiTable + " (" +
-                Raporti_i_ri.ID + " integer primary key autoincrement, " +
-                Raporti_i_ri.Username + " text not null," +
-                Raporti_i_ri.Koment + " text, " +
-                Raporti_i_ri.Kategorite + " text, " +
-                Raporti_i_ri.SelectedImage + " blob, " +
-                Raporti_i_ri.Koha + " DEFAULT CURRENT_TIMESTAMP, " +
-                Raporti_i_ri.Adresa + " text " +
+                RaportiRi.ID + " integer primary key autoincrement, " +
+                RaportiRi.Username + " text not null," +
+                RaportiRi.Koment + " text, " +
+                RaportiRi.Kategorite + " text, " +
+                RaportiRi.SelectedImage + " blob, " +
+                RaportiRi.Koha + " DEFAULT CURRENT_TIMESTAMP, " +
+                RaportiRi.Adresa + " text " +
                 ")";
 
         db.execSQL(strQuery);
@@ -54,5 +57,18 @@ public class Databaza extends SQLiteOpenHelper {
         db.execSQL("drop table if exists " + PerdoruesitTable);
         db.execSQL("drop table if exists " + RaportiRiTable);
         onCreate(db);
+    }
+
+    public Cursor readAllData() {
+        String query = " SELECT * FROM " + RaportiRiTable + " WHERE username ='" + FaqjaPare.strExtras + "'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+
+        if (db != null) {
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
     }
 }

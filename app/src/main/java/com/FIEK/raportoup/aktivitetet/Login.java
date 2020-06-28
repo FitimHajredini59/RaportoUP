@@ -1,4 +1,4 @@
-package com.FIEK.raportoup;
+package com.FIEK.raportoup.aktivitetet;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,7 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class LoginActivity extends AppCompatActivity {
+import com.FIEK.raportoup.R;
+import com.FIEK.raportoup.databaza.Databaza;
+import com.FIEK.raportoup.databaza.Perdoruesi;
+import com.FIEK.raportoup.utilities.Hash;
+
+public class Login extends AppCompatActivity {
 
     EditText etUsername, etPassword;
     Button btnLogin, btnRegister;
@@ -36,14 +41,14 @@ public class LoginActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentRegister = new Intent(LoginActivity.this, SignUpActivity.class);
+                Intent intentRegister = new Intent(Login.this, SignUp.class);
                 startActivity(intentRegister);
             }
         });
     }
 
     public void checkUsername(String username, String password) {
-        SQLiteDatabase objDb = new Databaza(LoginActivity.this).getReadableDatabase();
+        SQLiteDatabase objDb = new Databaza(Login.this).getReadableDatabase();
 
         Cursor c = objDb.query(Databaza.PerdoruesitTable,
                 new String[]{Perdoruesi.ID, Perdoruesi.Username, Perdoruesi.Password},
@@ -57,10 +62,10 @@ public class LoginActivity extends AppCompatActivity {
             if (username.equals(dbUsername) &&
                     Hash.md5(password).equals(dbPassword)) {
 
-                Toast.makeText(LoginActivity.this, getString(R.string.loguar_sukses),
+                Toast.makeText(Login.this, getString(R.string.loguar_sukses),
                         Toast.LENGTH_LONG).show();
 
-                Intent faqjaPare = new Intent(LoginActivity.this, FaqjaPare.class);
+                Intent faqjaPare = new Intent(Login.this, FaqjaPare.class);
                 faqjaPare.putExtra("username", etUsername.getText().toString());
                 startActivity(faqjaPare);
             } else {
