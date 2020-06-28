@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -25,12 +26,14 @@ import android.os.Looper;
 import android.os.ResultReceiver;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,6 +42,8 @@ import android.widget.Toast;
 import com.FIEK.raportoup.R;
 import com.FIEK.raportoup.databaza.Databaza;
 import com.FIEK.raportoup.databaza.RaportiRi;
+import com.FIEK.raportoup.fragmentet.Ndihma;
+import com.FIEK.raportoup.fragmentet.RaportetMiaFragment;
 import com.FIEK.raportoup.utilities.FetchAddressIntentService;
 import com.FIEK.raportoup.utilities.Konstanta;
 import com.google.android.gms.location.LocationCallback;
@@ -52,7 +57,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSelectedListener, PopupMenu.OnMenuItemClickListener {
 
     // per ngarkim te fotos
     private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
@@ -77,6 +82,10 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
     String spinner_value;
     public static String strExtras = "";
 
+    /*=================Per Shared Preferences===============*/
+    public static final String MY_PREFS_FILE_NAME = "com.FIEK.raportoup.Preferencat";
+    /*=================Per Shared Preferences===============*/
+
     /*-------------------------E shtuar per spinnerin--------------------------------*/
     private Spinner spinner;
     private static final String[] paths = {"të tjera", "profesor", "asistent", "zyrtar referent", "prodekan", "dekan"
@@ -90,6 +99,12 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
 
         if (getIntent().getExtras() != null)
             strExtras = getIntent().getExtras().getString("username");
+
+        /*======================Pjesa per SHARED PREFERENCES=================================*/
+        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_FILE_NAME, MODE_PRIVATE).edit();   //MODE PRIVATE tregon qe vetem ne me app-in tone mund te ju qasemi ketij fajlli
+        editor.putString("perdoruesi", strExtras);  //KEY eshte perdoruesi, dhe VALUE eshte variabla strExtras qe merr vlera nga username-i i shenuar
+        editor.commit();    //ruan te dhenat ne fajll
+        /*======================Pjesa per SHARED PREFERENCES=================================*/
 
         TextView tv1 = findViewById(R.id.tv1);
         tv1.setText("Mirë se vini, " + strExtras + "!");
@@ -223,6 +238,32 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
             }
         });
     }
+
+    /*=============================POP UP menuja=========================*/
+    public void showPopUp(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.popup_menu);
+        popup.show();
+    }
+
+    public boolean onMenuItemClick(MenuItem item) {     //e ngjajshme me metoden button.setOnClickListener()
+        switch (item.getItemId()) {
+            case R.id.raportetmiaopt:
+            Intent RaportetMiaFragmentIntent = new Intent(FaqjaPare.this, RaportetMia.class);
+            startActivity(RaportetMiaFragmentIntent);
+                return true;
+            case R.id.ndihmaopt:
+//            Intent NdihmaFragmentIntent = new Intent(FaqjaPare.this, Ndihma.class);
+//            startActivity(NdihmaFragmentIntent);
+                return true;
+            default:
+                return false;
+        }
+    }
+    /*=============================POP UP menuja=========================*/
+
+
 
     //Koha
     private String getDateTime() {
