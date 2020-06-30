@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.FIEK.raportoup.R;
 import com.FIEK.raportoup.databaza.Databaza;
 import com.FIEK.raportoup.databaza.Perdoruesi;
 import com.FIEK.raportoup.utilities.Hash;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.regex.*;
 
@@ -49,42 +51,85 @@ public class SignUp extends AppCompatActivity {
                 if (!Pattern.matches(idPattern, etID.getText().toString())) {
                     Toast.makeText(SignUp.this, "Ju lutem shkruani ID e juaj!", Toast.LENGTH_LONG).show();
                 } else {
-                    if (!Pattern.matches(emailPattern, etEmailAddress.getText())) {
-                        Toast.makeText(SignUp.this, "Nuk është valid email adresa", Toast.LENGTH_SHORT).show();
+                    SQLiteDatabase myDb = new Databaza(SignUp.this).getReadableDatabase();
+
+                    Cursor c = myDb.query(Databaza.PerdoruesitTable,
+                            new String[]{Perdoruesi.ID, Perdoruesi.Username},
+                            Perdoruesi.ID + "=?", new String[]{etID.getText().toString()}, "", "", "");
+
+                    if (c.getCount() > 0) {
+                        Toast.makeText(SignUp.this, "ID ekziston!", Toast.LENGTH_LONG).show();
                     } else {
-                        if (etUsername.getText().toString().equals("")) {
-                            Toast.makeText(SignUp.this, "Ju lutem plotësoni fushën username!", Toast.LENGTH_LONG).show();
+
+
+                        if (!Pattern.matches(emailPattern, etEmailAddress.getText())) {
+                            Toast.makeText(SignUp.this, "Nuk është valid email adresa", Toast.LENGTH_SHORT).show();
                         } else {
-                            if (!Pattern.matches(passPatern, etPassword.getText().toString())) {
-                                Toast.makeText(SignUp.this, "Fjalëkalimi duhet të përmbajë 6-20 karaktere, së paku një shkronjë të madhe dhe numër", Toast.LENGTH_LONG).show();
+
+                            myDb = new Databaza(SignUp.this).getReadableDatabase();
+
+                            c = myDb.query(Databaza.PerdoruesitTable,
+                                    new String[]{Perdoruesi.ID, Perdoruesi.Username, Perdoruesi.Email},
+                                    Perdoruesi.Email + "=?", new String[]{etEmailAddress.getText().toString()}, "", "", "");
+
+                            if (c.getCount() > 0) {
+                                Toast.makeText(SignUp.this, "Email ekziston!", Toast.LENGTH_LONG).show();
                             } else {
-                                if (!etPassword.getText().toString().equals(etPassword2.getText().toString())) {
-                                    Toast.makeText(SignUp.this, "Fjalëkalimi nuk përshtatet", Toast.LENGTH_LONG).show();
+                                if (etUsername.getText().toString().equals("")) {
+                                    Toast.makeText(SignUp.this, "Ju lutem plotësoni fushën username!", Toast.LENGTH_LONG).show();
                                 } else {
+                                    myDb = new Databaza(SignUp.this).getReadableDatabase();
 
-                                    ContentValues cv = new ContentValues();
-                                    cv.put(Perdoruesi.ID, etID.getText().toString());
-                                    cv.put(Perdoruesi.Email, etEmailAddress.getText().toString());
-                                    cv.put(Perdoruesi.Username, etUsername.getText().toString());
-                                    cv.put(Perdoruesi.Password, Hash.md5(etPassword.getText().toString()));
+                                    c = myDb.query(Databaza.PerdoruesitTable,
+                                            new String[]{Perdoruesi.ID, Perdoruesi.Username, Perdoruesi.Password},
+                                            Perdoruesi.Username + "=?", new String[]{etUsername.getText().toString()}, "", "", "");
 
-                                    SQLiteDatabase objDb = new Databaza(SignUp.this).getWritableDatabase();
+                                    if (c.getCount() > 0) {
+                                        Toast.makeText(SignUp.this, "Username ekziston!", Toast.LENGTH_LONG).show();
 
-                                    try {
-                                        long retValue = objDb.insertOrThrow(Databaza.PerdoruesitTable, null, cv);
-                                        if (retValue > 0) {
-                                            Toast.makeText(SignUp.this, "U regjistruat me sukses!",
-                                                    Toast.LENGTH_LONG).show();
+                                    } else {
 
-                                            Intent LogIn = new Intent(SignUp.this, Login.class);
-                                            startActivity(LogIn);
+                                        if (!Pattern.matches(passPatern, etPassword.getText().toString())) {
+                                            Toast.makeText(SignUp.this, "Fjalëkalimi duhet të përmbajë 6-20 karaktere, së paku një shkronjë të madhe dhe numër", Toast.LENGTH_LONG).show();
+                                        } else {
+                                            if (!etPassword.getText().toString().equals(etPassword2.getText().toString())) {
+                                                Toast.makeText(SignUp.this, "Fjalëkalimi nuk përshtatet", Toast.LENGTH_LONG).show();
+                                            } else {
+
+                                                ContentValues cv = new ContentValues();
+                                                cv.put(Perdoruesi.ID, etID.getText().toString());
+                                                cv.put(Perdoruesi.Email, etEmailAddress.getText().toString());
+                                                cv.put(Perdoruesi.Username, etUsername.getText().toString());
+                                                cv.put(Perdoruesi.Password, Hash.md5(etPassword.getText().toString()));
+
+                                                SQLiteDatabase objDb = new Databaza(SignUp.this).getWritableDatabase();
+
+                                                try {
+                                                    long retValue = objDb.insertOrThrow(Databaza.PerdoruesitTable, null, cv);
+                                                    if (retValue > 0) {
+
+
+                                                        Snackbar.make(v, "U regjistruat me sukses!", Snackbar.LENGTH_INDEFINITE)
+                                                                .setAction("Kyçu", new View.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(View view) {
+                                                                        Intent LogIn = new Intent(SignUp.this, Login.class);
+                                                                        startActivity(LogIn);
+
+                                                                    }
+                                                                })
+                                                                .setActionTextColor(getResources().getColor(android.R.color.holo_orange_dark ))
+                                                                .show();
+                                                    }
+                                                } catch (Exception ex) {
+                                                    String string = ex.getMessage();
+                                                    String[] arrOfStrings = string.split(":", 2);
+                                                    Toast.makeText(SignUp.this, arrOfStrings[0], Toast.LENGTH_LONG).show();
+                                                } finally {
+                                                    objDb.close();
+                                                }
+                                            }
                                         }
-                                    } catch (Exception ex) {
-                                        String string = ex.getMessage();
-                                        String[] arrOfStrings = string.split(":", 2);
-                                        Toast.makeText(SignUp.this, arrOfStrings[0], Toast.LENGTH_LONG).show();
-                                    } finally {
-                                        objDb.close();
                                     }
                                 }
                             }
@@ -94,13 +139,13 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
-        btnLogin = findViewById(R.id.logInBtn);
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent LogIn = new Intent(SignUp.this, Login.class);
-                startActivity(LogIn);
-            }
-        });
+//        btnLogin = findViewById(R.id.logInBtn);
+//        btnLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent LogIn = new Intent(SignUp.this, Login.class);
+//                startActivity(LogIn);
+//            }
+//        });
     }
 }

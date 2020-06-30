@@ -23,8 +23,11 @@
     <string name="raportoUP">RaportoUP</string>
     <string name="per_tmiren_uni">për të mirën e Universitetit!</string>
     <string name="raportet_mia">Raportet e mia</string>
+    <string name="raportetAdmin">Raportimet</string>
     <string name="ndihma">Ndihma</string>
     <string name="raportet_mia_fragment">RaportetMia Fragment</string>
     <string name="ndihma_fragment">Ndihma Fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

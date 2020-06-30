@@ -6,8 +6,8 @@
         android:title="Raportet e Mia"
         />
     <item
-        android:id="@+id/ndihmaopt"
-        android:title="Ndihma"
+        android:id="@+id/shkyquopt"
+        android:title="Shkyçu"
         />
 
 </menu>

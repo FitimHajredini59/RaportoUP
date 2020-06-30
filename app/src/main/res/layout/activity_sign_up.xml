@@ -97,27 +97,4 @@
         android:textSize="22sp"
         android:textStyle="bold" />
 
-    <!--
-    -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
-        android:fontFamily="sans-serif"
-        android:text="Tashmë jeni regjistruar?"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF" />
-
-    <Button
-        android:id="@+id/logInBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:background="#4A6572"
-        android:text="@string/btnLogin"
-        android:textSize="22sp"
-        android:padding="10dp"
-        android:textColor="#FF8C00"
-        android:textStyle="bold" />
-
 </LinearLayout>

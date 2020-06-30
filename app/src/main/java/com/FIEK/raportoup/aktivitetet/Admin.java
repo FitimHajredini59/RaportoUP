@@ -1,38 +1,37 @@
 package com.FIEK.raportoup.aktivitetet;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
-
-import androidx.appcompat.widget.Toolbar;
 
 import android.os.Build;
 import android.os.Bundle;
 
-import com.FIEK.raportoup.adapter.PageAdapter;
 import com.FIEK.raportoup.R;
+import com.FIEK.raportoup.adapter.AdminPageAdapter;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
-public class RaportetMia<Tablayout> extends AppCompatActivity {
+public class Admin extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_raportet_mia);
+        setContentView(R.layout.activity_admin);
 
-        final Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(getResources().getString(R.string.raportet_mia));
+        final Toolbar toolbar = findViewById(R.id.toolbarAdmin);
+        toolbar.setTitle(getResources().getString(R.string.raportetAdmin));
 
         final TabLayout tablayout;
-        tablayout = findViewById(R.id.tablayout);
+        tablayout = findViewById(R.id.tablayoutAdmin);
 
-        TabItem raportetMia = findViewById(R.id.raportetmia);
-        TabItem ndihma = findViewById(R.id.ndihma);
+        TabItem raportimetAdmin = findViewById(R.id.raportimetAdmin);
+        TabItem statistika = findViewById(R.id.statistikaAdmin);
 
-        ViewPager viewPager = findViewById(R.id.viewpager);
-        PageAdapter pageAdapter = new PageAdapter(getSupportFragmentManager(), tablayout.getTabCount());
-        viewPager.setAdapter(pageAdapter);
+        ViewPager viewPager = findViewById(R.id.viewpagerAdmin);
+        AdminPageAdapter adminPageAdapter = new AdminPageAdapter(getSupportFragmentManager(), tablayout.getTabCount());
+        viewPager.setAdapter(adminPageAdapter);
 
         /*Sinkronizimi me Tablayout indikatorin, i cili nderron tab-at kur klikon ose swipe ne tabs te ndryshem*/
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tablayout));
@@ -41,28 +40,28 @@ public class RaportetMia<Tablayout> extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 1) {
-                    toolbar.setBackgroundColor(ContextCompat.getColor(RaportetMia.this,
-                            android.R.color.darker_gray));
+                    toolbar.setBackgroundColor(ContextCompat.getColor(Admin.this,
+                            android.R.color.holo_blue_dark));
                 } else {
-                    toolbar.setBackgroundColor(ContextCompat.getColor(RaportetMia.this,
-                            android.R.color.holo_orange_dark));
+                    toolbar.setBackgroundColor(ContextCompat.getColor(Admin.this,
+                            android.R.color.holo_red_dark));
                 }
 
                 if (tab.getPosition() == 1) {
-                    tablayout.setBackgroundColor(ContextCompat.getColor(RaportetMia.this,
-                            android.R.color.darker_gray));
+                    tablayout.setBackgroundColor(ContextCompat.getColor(Admin.this,
+                            android.R.color.holo_blue_dark));
                 } else {
-                    tablayout.setBackgroundColor(ContextCompat.getColor(RaportetMia.this,
-                            android.R.color.holo_orange_dark));
+                    tablayout.setBackgroundColor(ContextCompat.getColor(Admin.this,
+                            android.R.color.holo_red_dark));
                 }
                 if (tab.getPosition() == 1) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        getWindow().setStatusBarColor(ContextCompat.getColor(RaportetMia.this,
+                        getWindow().setStatusBarColor(ContextCompat.getColor(Admin.this,
                                 android.R.color.black));
                     } else {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            getWindow().setStatusBarColor(ContextCompat.getColor(RaportetMia.this,
-                                    android.R.color.darker_gray));
+                            getWindow().setStatusBarColor(ContextCompat.getColor(Admin.this,
+                                    android.R.color.holo_blue_dark));
                         }
                     }
                 }

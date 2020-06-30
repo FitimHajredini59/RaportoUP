@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragmentet.Raportimet">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="?attr/actionBarSize" />
+
+    <ImageView
+        android:id="@+id/empty_imageviewAdmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:alpha="0.1"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/no_dataAdmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:alpha="0.4"
+        android:text="No Data."
+        android:textSize="20sp"
+        android:visibility="gone" />
+</FrameLayout>

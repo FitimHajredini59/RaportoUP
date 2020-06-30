@@ -2,14 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.FIEK.raportoup">
-
-    <!-- -->
+    <!--  -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
 
     <application
         android:allowBackup="true"
@@ -21,28 +19,24 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-
+        <activity android:name=".aktivitetet.Admin"></activity>
         <!-- <activity android:name=".LoginActivity" -->
-
         <activity
             android:name=".aktivitetet.FaqjaHyrese"
             android:theme="@style/FullScreen">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".aktivitetet.Login"></activity>
-        <activity android:name=".aktivitetet.SignUp"></activity>
+        <activity android:name=".aktivitetet.Login" />
+        <activity android:name=".aktivitetet.SignUp" />
         <activity android:name=".aktivitetet.FaqjaPare" />
-        <activity android:name=".aktivitetet.RaportetMia"></activity>
-        <activity android:name=".aktivitetet.Shfaqi"/>
+        <activity android:name=".aktivitetet.RaportetMia" />
+        <activity android:name=".aktivitetet.Shfaqi" />
 
         <service android:name=".utilities.FetchAddressIntentService" />
     </application>
-
 
 </manifest>

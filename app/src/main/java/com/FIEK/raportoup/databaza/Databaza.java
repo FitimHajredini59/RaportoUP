@@ -6,6 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.FIEK.raportoup.aktivitetet.FaqjaPare;
+import com.FIEK.raportoup.utilities.Hash;
+import com.github.mikephil.charting.data.PieEntry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Databaza extends SQLiteOpenHelper {
 
@@ -32,10 +37,11 @@ public class Databaza extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String strQuery = "create table " + PerdoruesitTable + " (" +
-                Perdoruesi.ID + " integer primary key autoincrement," +
-                Perdoruesi.Email + " text," +
-                Perdoruesi.Username + " text not null," +
-                Perdoruesi.Password + " text not null " +
+                Perdoruesi.ID + " integer unique," +
+                Perdoruesi.Email + " text unique not null," +
+                Perdoruesi.Username + " text primary key," +
+                Perdoruesi.Password + " text not null, " +
+                Perdoruesi.Admin + " boolean default 0 " +
                 ")";
 
         String strQuery1 = "create table " + RaportiRiTable + " (" +
@@ -70,5 +76,42 @@ public class Databaza extends SQLiteOpenHelper {
             cursor = db.rawQuery(query, null);
         }
         return cursor;
+    }
+
+    public Cursor readAllDataAdmin() {
+        String query = " SELECT * FROM " + RaportiRiTable;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+
+        if (db != null) {
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
+
+    public void shtoAdmin() {
+        String pass = Hash.md5("A123456");
+        String query = " INSERT INTO " + PerdoruesitTable + " (email, username, password, admin) VALUES('admin@gmail.com', 'admin', '" + pass + "', 1) ";
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL(query);
+    }
+
+    public List<PieEntry> stats() {
+        List<PieEntry> al = new ArrayList<PieEntry>();
+        SQLiteDatabase dbs = this.getReadableDatabase();
+
+        Cursor cursorS = dbs.rawQuery(" SELECT kategorite, COUNT(*) as countS FROM " +
+                                            RaportiRiTable + " GROUP BY " + RaportiRi.Kategorite, null);
+
+        if (cursorS.moveToFirst()) {
+            do {
+                al.add(new PieEntry(cursorS.getInt(1), cursorS.getString(0)));
+            }
+            while (cursorS.moveToNext());
+        }
+        return al;
     }
 }

@@ -253,9 +253,9 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
             Intent RaportetMiaFragmentIntent = new Intent(FaqjaPare.this, RaportetMia.class);
             startActivity(RaportetMiaFragmentIntent);
                 return true;
-            case R.id.ndihmaopt:
-//            Intent NdihmaFragmentIntent = new Intent(FaqjaPare.this, Ndihma.class);
-//            startActivity(NdihmaFragmentIntent);
+            case R.id.shkyquopt:
+            Intent shkyqu = new Intent(FaqjaPare.this, Login.class);
+            startActivity(shkyqu);
                 return true;
             default:
                 return false;
