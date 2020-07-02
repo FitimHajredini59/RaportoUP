@@ -1,5 +1,6 @@
 package com.FIEK.raportoup.fragmentet;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -15,7 +16,9 @@ import android.widget.TextView;
 
 import com.FIEK.raportoup.R;
 import com.FIEK.raportoup.adapter.AdminAdapter;
+import com.FIEK.raportoup.aktivitetet.Login;
 import com.FIEK.raportoup.databaza.Databaza;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 import java.util.ArrayList;
@@ -30,16 +33,13 @@ public class Raportimet extends Fragment {
     RecyclerView recyclerViewAdmin;
     ImageView empty_imageviewAdmin;
     TextView no_dataAdmin;
-
     Databaza db;
-    ArrayList<String> id;
     ArrayList<String> username;
     ArrayList<String> koment;
     ArrayList<String> kategorite;
     ArrayList<byte[]> selectedImage;
     ArrayList<String> koha;
     ArrayList<String> adresa;
-
     AdminAdapter adminAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -91,8 +91,16 @@ public class Raportimet extends Fragment {
         empty_imageviewAdmin = viewGroup.findViewById(R.id.empty_imageviewAdmin);
         no_dataAdmin = viewGroup.findViewById(R.id.no_dataAdmin);
 
+        FloatingActionButton fab = (FloatingActionButton) viewGroup.findViewById(R.id.dil);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), Login.class);
+                startActivity(intent);
+            }
+        });
+
         db = new Databaza(getContext());
-//        id = new ArrayList<>();
         username = new ArrayList<>();
         koment = new ArrayList<>();
         kategorite = new ArrayList<>();
@@ -116,7 +124,6 @@ public class Raportimet extends Fragment {
             no_dataAdmin.setVisibility(View.VISIBLE);
         } else {
             while (cursor.moveToNext()) {
-//                id.add(cursor.getString(0));
                 username.add(cursor.getString(1));
                 koment.add(cursor.getString(2));
                 kategorite.add(cursor.getString(3));

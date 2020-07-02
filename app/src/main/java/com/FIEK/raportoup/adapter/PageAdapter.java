@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.FIEK.raportoup.fragmentet.Ndihma;
+import com.FIEK.raportoup.fragmentet.InfoUP;
 import com.FIEK.raportoup.fragmentet.RaportetMiaFragment;
 
 public class PageAdapter extends FragmentPagerAdapter {
@@ -17,7 +17,6 @@ public class PageAdapter extends FragmentPagerAdapter {
         this.tabsNr = tabsNr;
     }
 
-    /*Metoda per inicializimin e fragmenteve per Android TabLayout*/
     @NonNull
     @Override
     public Fragment getItem(int position) {
@@ -25,13 +24,12 @@ public class PageAdapter extends FragmentPagerAdapter {
             case 0:
                 return new RaportetMiaFragment();
             case 1:
-                return new Ndihma();
+                return new InfoUP();
             default:
                 return null;
         }
     }
 
-    /*Metoda per kthimin e numrit te Tabs qe shfaqen ne Android TabLayout*/
     @Override
     public int getCount() {
         return tabsNr;

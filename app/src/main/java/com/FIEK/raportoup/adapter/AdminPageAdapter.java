@@ -17,7 +17,6 @@ public class AdminPageAdapter extends FragmentPagerAdapter {
         this.tabsNr = tabsNr;
     }
 
-    /*Metoda per inicializimin e fragmenteve per Android TabLayout*/
     @NonNull
     @Override
     public Fragment getItem(int position) {
@@ -31,7 +30,6 @@ public class AdminPageAdapter extends FragmentPagerAdapter {
         }
     }
 
-    /*Metoda per kthimin e numrit te Tabs qe shfaqen ne Android TabLayout*/
     @Override
     public int getCount() {
         return tabsNr;

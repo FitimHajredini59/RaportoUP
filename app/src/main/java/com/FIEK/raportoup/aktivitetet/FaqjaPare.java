@@ -42,8 +42,6 @@ import android.widget.Toast;
 import com.FIEK.raportoup.R;
 import com.FIEK.raportoup.databaza.Databaza;
 import com.FIEK.raportoup.databaza.RaportiRi;
-import com.FIEK.raportoup.fragmentet.Ndihma;
-import com.FIEK.raportoup.fragmentet.RaportetMiaFragment;
 import com.FIEK.raportoup.utilities.FetchAddressIntentService;
 import com.FIEK.raportoup.utilities.Konstanta;
 import com.google.android.gms.location.LocationCallback;
@@ -120,6 +118,7 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 spinner_value = spinner.getSelectedItem().toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // TODO Auto-generated method stub
@@ -202,38 +201,42 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
             @Override
             public void onClick(View v) {
 
-                Bitmap b = ((BitmapDrawable) imageSelected.getDrawable()).getBitmap();
+                if (etKoment.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(FaqjaPare.this, " Ju lutem përshkruani raportin! ",
+                            Toast.LENGTH_LONG).show();
+
+                } else {
+                    Bitmap b = ((BitmapDrawable) imageSelected.getDrawable()).getBitmap();
                 /*krijo objektin e ByteArrayoutputStream class.
                 Ndaje foton ne pjese bajt, duke thirr toByteArray()
                 nga ByteOutputStream class dhe ruaj ate ne nje varg */
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                b.compress(Bitmap.CompressFormat.PNG, 100, bos);
-                byte[] img = bos.toByteArray();
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    b.compress(Bitmap.CompressFormat.PNG, 100, bos);
+                    byte[] img = bos.toByteArray();
 
-                ContentValues cvv = new ContentValues();
-                cvv.put(RaportiRi.Username, strExtras);
-                cvv.put(RaportiRi.Koment, etKoment.getText().toString());
-                cvv.put(RaportiRi.Kategorite, spinner_value);
-                cvv.put(RaportiRi.SelectedImage, img);
-                cvv.put(RaportiRi.Koha, getDateTime());
-                cvv.put(RaportiRi.Adresa, textAdresa.getText().toString());
+                    ContentValues cvv = new ContentValues();
+                    cvv.put(RaportiRi.Username, strExtras);
+                    cvv.put(RaportiRi.Koment, etKoment.getText().toString());
+                    cvv.put(RaportiRi.Kategorite, spinner_value);
+                    cvv.put(RaportiRi.SelectedImage, img);
+                    cvv.put(RaportiRi.Koha, getDateTime());
+                    cvv.put(RaportiRi.Adresa, textAdresa.getText().toString());
 
-                SQLiteDatabase objDb = new Databaza(FaqjaPare.this).getWritableDatabase();
+                    SQLiteDatabase objDb = new Databaza(FaqjaPare.this).getWritableDatabase();
 
-                try {
-                    long retValue1 = objDb.insert(Databaza.RaportiRiTable, null, cvv);
-                    if (retValue1 > 0) {
-                        Toast.makeText(FaqjaPare.this, " Raporti u dërgua me sukses! ",
-                                Toast.LENGTH_LONG).show();
-                        //
-                        Intent intentRaportetMia = new Intent(FaqjaPare.this, RaportetMia.class);
-                        startActivity(intentRaportetMia);
-                        //
+                    try {
+                        long retValue1 = objDb.insert(Databaza.RaportiRiTable, null, cvv);
+                        if (retValue1 > 0) {
+                            Toast.makeText(FaqjaPare.this, " Raporti u dërgua me sukses! ",
+                                    Toast.LENGTH_LONG).show();
+                            Intent intentRaportetMia = new Intent(FaqjaPare.this, RaportetMia.class);
+                            startActivity(intentRaportetMia);
+                        }
+                    } catch (Exception ex) {
+                        Log.e("except", ex.getMessage());
+                    } finally {
+                        objDb.close();
                     }
-                } catch (Exception ex) {
-                    Log.e("except", ex.getMessage());
-                } finally {
-                    objDb.close();
                 }
             }
         });
@@ -247,23 +250,21 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
         popup.show();
     }
 
-    public boolean onMenuItemClick(MenuItem item) {     //e ngjajshme me metoden button.setOnClickListener()
+    public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.raportetmiaopt:
-            Intent RaportetMiaFragmentIntent = new Intent(FaqjaPare.this, RaportetMia.class);
-            startActivity(RaportetMiaFragmentIntent);
+                Intent RaportetMiaFragmentIntent = new Intent(FaqjaPare.this, RaportetMia.class);
+                startActivity(RaportetMiaFragmentIntent);
                 return true;
             case R.id.shkyquopt:
-            Intent shkyqu = new Intent(FaqjaPare.this, Login.class);
-            startActivity(shkyqu);
+                Intent shkyqu = new Intent(FaqjaPare.this, Login.class);
+                startActivity(shkyqu);
                 return true;
             default:
                 return false;
         }
     }
     /*=============================POP UP menuja=========================*/
-
-
 
     //Koha
     private String getDateTime() {
@@ -273,11 +274,9 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
         return dateFormat.format(date);
     }
 
-    //
     /*-------------------------E shtuar per spinnerin--------------------------------*/
     @Override
     public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-        
     }
 
     @Override
@@ -382,14 +381,6 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
                                     locationResult.getLocations().get(latestLocationIndex).getLatitude();
                             double longitude =
                                     locationResult.getLocations().get(latestLocationIndex).getLongitude();
-                            textLatLong.setText(
-                                    String.format(
-                                            "Latitude: %s\nLongitude: %s",
-                                            latitude,
-                                            longitude
-                                    )
-                            );
-                            //
                             Location location = new Location("providerNA");
                             location.setLatitude(latitude);
                             location.setLongitude(longitude);
@@ -446,7 +437,6 @@ public class FaqjaPare extends AppCompatActivity implements AdapterView.OnItemSe
                 }
             }
         }
-
         //per kamere
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");

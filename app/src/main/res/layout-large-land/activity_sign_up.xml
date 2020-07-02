@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".aktivitetet.SignUp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#344955"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".aktivitetet.SignUp">
+    >
 
     <ImageView
         android:layout_width="100dp"
@@ -44,6 +49,7 @@
         android:padding="10dp"
         android:textSize="20sp" />
 
+
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
@@ -55,6 +61,7 @@
         android:inputType="text"
         android:padding="10dp"
         android:textSize="20sp" />
+
 
     <EditText
         android:id="@+id/etPassword"
@@ -80,6 +87,7 @@
         android:padding="10dp"
         android:textSize="20sp" />
 
+
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
@@ -95,3 +103,4 @@
         android:textStyle="bold" />
 
 </LinearLayout>
+</androidx.core.widget.NestedScrollView>

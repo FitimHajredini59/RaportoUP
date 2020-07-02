@@ -23,7 +23,7 @@ import java.util.regex.*;
 public class SignUp extends AppCompatActivity {
 
     EditText etID, etEmailAddress, etUsername, etPassword, etPassword2;
-    Button btnRegister, btnLogin;
+    Button btnRegister;
 
 
     @Override
@@ -118,7 +118,7 @@ public class SignUp extends AppCompatActivity {
 
                                                                     }
                                                                 })
-                                                                .setActionTextColor(getResources().getColor(android.R.color.holo_orange_dark ))
+                                                                .setActionTextColor(getResources().getColor(android.R.color.holo_orange_dark))
                                                                 .show();
                                                     }
                                                 } catch (Exception ex) {
@@ -138,14 +138,5 @@ public class SignUp extends AppCompatActivity {
                 }
             }
         });
-
-//        btnLogin = findViewById(R.id.logInBtn);
-//        btnLogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent LogIn = new Intent(SignUp.this, Login.class);
-//                startActivity(LogIn);
-//            }
-//        });
     }
 }

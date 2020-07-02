@@ -28,7 +28,7 @@ public class RaportetMia<Tablayout> extends AppCompatActivity {
         tablayout = findViewById(R.id.tablayout);
 
         TabItem raportetMia = findViewById(R.id.raportetmia);
-        TabItem ndihma = findViewById(R.id.ndihma);
+        TabItem infoup = findViewById(R.id.infoup);
 
         ViewPager viewPager = findViewById(R.id.viewpager);
         PageAdapter pageAdapter = new PageAdapter(getSupportFragmentManager(), tablayout.getTabCount());
@@ -42,7 +42,7 @@ public class RaportetMia<Tablayout> extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 1) {
                     toolbar.setBackgroundColor(ContextCompat.getColor(RaportetMia.this,
-                            android.R.color.darker_gray));
+                            android.R.color.holo_green_dark));
                 } else {
                     toolbar.setBackgroundColor(ContextCompat.getColor(RaportetMia.this,
                             android.R.color.holo_orange_dark));
@@ -50,7 +50,7 @@ public class RaportetMia<Tablayout> extends AppCompatActivity {
 
                 if (tab.getPosition() == 1) {
                     tablayout.setBackgroundColor(ContextCompat.getColor(RaportetMia.this,
-                            android.R.color.darker_gray));
+                            android.R.color.holo_green_dark));
                 } else {
                     tablayout.setBackgroundColor(ContextCompat.getColor(RaportetMia.this,
                             android.R.color.holo_orange_dark));
@@ -62,7 +62,7 @@ public class RaportetMia<Tablayout> extends AppCompatActivity {
                     } else {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             getWindow().setStatusBarColor(ContextCompat.getColor(RaportetMia.this,
-                                    android.R.color.darker_gray));
+                                    android.R.color.holo_green_dark));
                         }
                     }
                 }

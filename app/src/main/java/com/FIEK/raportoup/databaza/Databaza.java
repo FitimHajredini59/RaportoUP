@@ -14,22 +14,12 @@ import java.util.List;
 
 public class Databaza extends SQLiteOpenHelper {
 
-    // Logcat tag
     private static final String LOG = "Databaza";
-
-    // Database Version
     private static final int DATABASE_VERSION = 6;
-
-    // Database Name
     private static final String DATABASE_NAME = "raportoupDB";
-
-    //
     public static final String PerdoruesitTable = "perdoruesit";
-
-    //
     public static final String RaportiRiTable = "raporti_i_ri";
 
-    //
     public Databaza(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -67,11 +57,9 @@ public class Databaza extends SQLiteOpenHelper {
 
     public Cursor readAllData() {
         String query = " SELECT * FROM " + RaportiRiTable + " WHERE username ='" + FaqjaPare.strExtras + "'";
-
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
-
         if (db != null) {
             cursor = db.rawQuery(query, null);
         }
@@ -80,11 +68,9 @@ public class Databaza extends SQLiteOpenHelper {
 
     public Cursor readAllDataAdmin() {
         String query = " SELECT * FROM " + RaportiRiTable;
-
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
-
         if (db != null) {
             cursor = db.rawQuery(query, null);
         }
@@ -95,7 +81,6 @@ public class Databaza extends SQLiteOpenHelper {
         String pass = Hash.md5("A123456");
         String query = " INSERT INTO " + PerdoruesitTable + " (email, username, password, admin) VALUES('admin@gmail.com', 'admin', '" + pass + "', 1) ";
         SQLiteDatabase db = this.getWritableDatabase();
-
         db.execSQL(query);
     }
 
@@ -104,8 +89,7 @@ public class Databaza extends SQLiteOpenHelper {
         SQLiteDatabase dbs = this.getReadableDatabase();
 
         Cursor cursorS = dbs.rawQuery(" SELECT kategorite, COUNT(*) as countS FROM " +
-                                            RaportiRiTable + " GROUP BY " + RaportiRi.Kategorite, null);
-
+                RaportiRiTable + " GROUP BY " + RaportiRi.Kategorite, null);
         if (cursorS.moveToFirst()) {
             do {
                 al.add(new PieEntry(cursorS.getInt(1), cursorS.getString(0)));

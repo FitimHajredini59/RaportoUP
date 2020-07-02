@@ -6,9 +6,11 @@
     android:padding="10dp"
     tools:context=".fragmentet.Statistika">
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChart"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp"></com.github.mikephil.charting.charts.PieChart>
+ <com.github.mikephil.charting.charts.PieChart
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:id="@+id/pieChart"
+     android:padding="10dp"
+  >
+ </com.github.mikephil.charting.charts.PieChart>
 </FrameLayout>

@@ -7,15 +7,20 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.FIEK.raportoup.R;
+import com.FIEK.raportoup.utilities.FetchDataUP;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Ndihma#newInstance} factory method to
+ * Use the {@link InfoUP#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Ndihma extends Fragment {
+public class InfoUP extends Fragment {
+
+    public static TextView data1, data2, data3, data4;
+//    public static RequestQueue requestQueue;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +31,7 @@ public class Ndihma extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Ndihma() {
+    public InfoUP() {
         // Required empty public constructor
     }
 
@@ -39,8 +44,8 @@ public class Ndihma extends Fragment {
      * @return A new instance of fragment NdihmaFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Ndihma newInstance(String param1, String param2) {
-        Ndihma fragment = new Ndihma();
+    public static InfoUP newInstance(String param1, String param2) {
+        InfoUP fragment = new InfoUP();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,7 +65,17 @@ public class Ndihma extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ndihma, container, false);
+
+        View viewGroup = inflater.inflate(R.layout.fragment_infoup, container, false);
+
+        data1 = viewGroup.findViewById(R.id.data1);
+        data2 = viewGroup.findViewById(R.id.data2);
+        data3 = viewGroup.findViewById(R.id.data3);
+        data4 = viewGroup.findViewById(R.id.data4);
+
+        FetchDataUP process = new FetchDataUP();
+        process.execute();
+
+        return viewGroup;
     }
 }

@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#344955"
     android:gravity="center_vertical"
     android:padding="16dp"
-    tools:context=".aktivitetet.Login">
+    tools:context=".aktivitetet.Login"
+    android:id="@+id/activity_login">
 
 
     <ImageView
@@ -60,8 +60,8 @@
         android:background="#FF8C00"
         android:fontFamily="sans-serif"
         android:padding="10dp"
-        android:text="@string/btnLogin"
         android:textAllCaps="false"
+        android:text="@string/btnLogin"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
         android:textStyle="bold" />

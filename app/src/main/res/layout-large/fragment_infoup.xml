@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragmentet.InfoUP">
+
+
+    <TextView
+        android:id="@+id/country_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kosova"
+        app:layout_constraintBottom_toTopOf="@+id/date_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/date_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="01.07.2020"
+        app:layout_constraintBottom_toTopOf="@+id/infected_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/country_id" />
+
+    <TextView
+        android:id="@+id/infected_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Infected"
+        app:layout_constraintBottom_toTopOf="@+id/recovered_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_id" />
+
+    <TextView
+        android:id="@+id/recovered_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Recovered"
+        app:layout_constraintBottom_toTopOf="@+id/death_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/infected_id" />
+
+    <TextView
+        android:id="@+id/death_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Death"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recovered_id" />
+</androidx.constraintlayout.widget.ConstraintLayout>

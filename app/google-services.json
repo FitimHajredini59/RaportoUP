@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "168321148063",
+    "firebase_url": "https://raportoup-aabb8.firebaseio.com",
+    "project_id": "raportoup-aabb8",
+    "storage_bucket": "raportoup-aabb8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168321148063:android:69d8a398aa148057eb2eaa",
+        "android_client_info": {
+          "package_name": "com.FIEK.raportoup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "168321148063-ubu5lhlc7367450v0c8mumv1rl2hjcfr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.FIEK.raportoup",
+            "certificate_hash": "53d63c0f2ff1033bb21260108faecec8e999050d"
+          }
+        },
+        {
+          "client_id": "168321148063-ujq36q34lvc1pr8g16gvkkoost6kpmcn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2oh696gBWdGflhN0ou1nVnvHlrfOI-fE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "168321148063-ujq36q34lvc1pr8g16gvkkoost6kpmcn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

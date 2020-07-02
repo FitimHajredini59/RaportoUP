@@ -37,7 +37,6 @@ public class RaportetMiaFragment extends Fragment {
     FloatingActionButton add_button;
 
     Databaza db;
-    ArrayList<String> id;
     ArrayList<String> username;
     ArrayList<String> koment;
     ArrayList<String> kategorite;
@@ -111,7 +110,6 @@ public class RaportetMiaFragment extends Fragment {
         });
 
         db = new Databaza(getContext());
-//        id = new ArrayList<>();
         username = new ArrayList<>();
         koment = new ArrayList<>();
         kategorite = new ArrayList<>();
@@ -135,7 +133,6 @@ public class RaportetMiaFragment extends Fragment {
             no_data.setVisibility(View.VISIBLE);
         } else {
             while (cursor.moveToNext()) {
-//                id.add(cursor.getString(0));
                 username.add(cursor.getString(1));
                 koment.add(cursor.getString(2));
                 kategorite.add(cursor.getString(3));

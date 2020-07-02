@@ -29,10 +29,9 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolder
 
 
     public AdminAdapter(Activity activity, Context context, ArrayList username,
-                         ArrayList koment, ArrayList kategorite, ArrayList selectedImage, ArrayList koha, ArrayList adresa) {
+                        ArrayList koment, ArrayList kategorite, ArrayList selectedImage, ArrayList koha, ArrayList adresa) {
         this.activity = activity;
         this.context = context;
-        // this.id = id;
         this.username = username;
         this.koment = koment;
         this.kategorite = kategorite;
@@ -55,7 +54,6 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull final AdminAdapter.MyViewHolder holder, final int position) {
 
-        // holder.id_txt.setText(String.valueOf(id.get(position)));
         holder.username_txt.setText(String.valueOf(username.get(position)));
         holder.koment_txt.setText(String.valueOf(koment.get(position)));
         holder.kategorite_txt.setText(String.valueOf(kategorite.get(position)));
@@ -73,13 +71,12 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolder
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView id_txt, username_txt, koment_txt, kategorite_txt, koha_txt, adresa_txt;
+        TextView username_txt, koment_txt, kategorite_txt, koha_txt, adresa_txt;
         ImageView selectedImage_iv;
         LinearLayout mainLayout;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
-//            id_txt = itemView.findViewById(R.id.id_txt);
             username_txt = itemView.findViewById(R.id.username_txt);
             koment_txt = itemView.findViewById(R.id.koment_txt);
             kategorite_txt = itemView.findViewById(R.id.kategorite_txt);
