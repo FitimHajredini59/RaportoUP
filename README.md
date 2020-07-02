@@ -32,7 +32,7 @@
 - [x] **Komunikimi me pjesë harduerike të telefonit.**
 
 ## Application Screenshot
-![image](https://ibb.co/QM2GMk0)
+![image](https://i.ibb.co/kXRFXJZ/sc.png)
 
 ## Ekipi
 - Arian Limani: arianlimanii@gmail.com || [@ArianLimani](https://github.com/ArianLimani).
