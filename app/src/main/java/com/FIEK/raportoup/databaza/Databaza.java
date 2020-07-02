@@ -56,7 +56,7 @@ public class Databaza extends SQLiteOpenHelper {
     }
 
     public Cursor readAllData() {
-        String query = " SELECT * FROM " + RaportiRiTable + " WHERE username ='" + FaqjaPare.strExtras + "'";
+        String query = " SELECT * FROM " + RaportiRiTable + " WHERE username ='" + FaqjaPare.strExtras + "' ORDER BY koha DESC ";
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
@@ -67,7 +67,7 @@ public class Databaza extends SQLiteOpenHelper {
     }
 
     public Cursor readAllDataAdmin() {
-        String query = " SELECT * FROM " + RaportiRiTable;
+        String query = " SELECT * FROM " + RaportiRiTable + " ORDER BY koha DESC ";
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
